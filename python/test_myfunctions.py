@@ -34,10 +34,10 @@ schema = StructType([ \
 ])
 
 data = [ (1, 0.23, "Ideal",   "E", "SI2", 61.5, 55, 326, 3.95, 3.98, 2.43 ), \
-         (2, 0.21, "Premium", "E", "SI1", 59.8, 61, 326, 3.89, 3.84, 2.31 ) ]
+         (2, 0.21, "Premium", "E", "SI1", 59.8, 61, 326, 3.89, 3.84, 2.31 ), \
+         (3, 0.21, "Premium", "E", "VVS2", 59.8, 61, 326, 3.89, 3.84, 2.31 ) ]
 
 df = spark.createDataFrame(data, schema)
-
 # Does the table exist?
 def test_tableExists():
   assert tableExists(tableName, dbName) is True
@@ -48,5 +48,6 @@ def test_columnExists():
 
 # Is there at least one row for the value in the specified column?
 def test_numRowsInColumnForValue():
-  assert numRowsInColumnForValue(df, columnName, columnValue) > 0
+  cnt=numRowsInColumnForValue(df, columnName, columnValue)
+  assert cnt > 0
   
